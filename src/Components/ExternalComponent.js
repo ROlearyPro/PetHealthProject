@@ -4,7 +4,6 @@ function ExternalComponent({ ideas }) {
     console.log(ideas)
     return(ideas.map((idea) => {
         idea.key=idea.id;
-
         return (
             <div key={idea.id}>
                 <br/>

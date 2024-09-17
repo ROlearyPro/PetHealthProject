@@ -3,7 +3,8 @@ import './App.css';
 import ExternalComponent from './Components/ExternalComponent';
 import FormComponent from './Components/FormComponent';
 import React, { useEffect, useState } from 'react';
-function App() {
+import APIComponent from './Components/APIComponent';
+ function App() {
   const dummyIdeas = [
     { id: 1, title: 'Prank Travis', description: 'Stick googly eyes on all his stuff' },
     { id: 2, title: 'Make a secret password app', description: 'So you and your rideshare driver can both know neither one of you is lying' },
@@ -19,20 +20,106 @@ function App() {
   const [formValues, setFormVals] = useState(emptyFormVals)
 
   const [ideas, setIdeas] = useState(dummyIdeas)
-  
-  function addIdea(newIdea){
+  const [responses, setResponses] = useState([])
+
+  function addIdea(newIdea) {
     setIdeas([...ideas, newIdea])
   }
+  function addResponse(newResponse) {
+    setResponses([...responses, newResponse])
+  }
 
-//   useEffect(()=>{
-//   getIdeas().then(
-//     data=>{
-//       setIdeas(data);
-//     }
-//   )
-// }, [])
+  let input = "pain"
+
+  const getPetHealth = async () => {
+    if (input) {
+
+      try {
+        const url = 'https://api.fda.gov/animalandveterinary/event.json?search=' + input + '&limit=1';
+        const response = await fetch(url);
+        if (!response.ok) {
+          console.log("not okay line 31")
+          const err = new Error(response.statusText)
+          err.statusCode = response.status
+          throw err
+        } else {
+          const data = await response.json();
+          console.log(response);
+          console.log(typeof(response))
+          addResponse(data);
+          return data;
+        }
+      }
+      catch (err) {
+        console.error(err)
+      }
+    }
+  };
+
+  useEffect(() => {
+    getPetHealth();
+  }, []);
+
+  //   return fetch('https://api.fda.gov/animalandveterinary/event.json?search=' + input + '&limit=1')
+  //     .then(res => {
+  //       if (!res.ok) {
+  //         console.log("not okay line 31")
+  //         const err = new Error(res.statusText)
+  //         err.statusCode = res.status
+  //         throw err
+  //       }
+  //       console.log("okay line 36")
+  //       return res.json()
+  //     })
+  //     .then(data => {
+  //       addIdea(data);
+  //       console.log(data)
+  //       return data
+  //     })
+  //     .catch(err => {
+  //       console.log(err)
+
+  //     });
+
+  // };
+
+  // 
+  // useEffect(() => {
+  //   const getSearchData = async () => {
+  //     if (input) {
+  //       const latitude = input;
+  //       let input = "pain"
+
+  //       try {
+  //         const url = 'https://api.fda.gov/animalandveterinary/event.json?search=' + { input } + '&limit=10';
+  //         const response = await fetch(url);
+  //         if (!response.ok) {
+  //           throw new Error('error retrieving medical info');
+  //         } else {
+  //           const data = await response.json();
+  //           console.log(data)
+
+  //         }
+  //       } catch (err) {
+  //         console.error(err);
+  //       }
+  //     }
+  //   };
+  //   void getSearchData();
+  // }, [input]);
+
+
+    useEffect(()=>{
+    getPetHealth().then(
+      data=>{
+        console.log(data);
+      }
+    )
+  }, [])
 
   console.log(ideas, ' line25')
+  console.log(responses, typeof(responses))
+  console.log(typeof(responses[0]))
   return (
     <div className="App">
       <h1>
@@ -41,6 +128,12 @@ function App() {
       <h2>
         <ExternalComponent ideas={ideas} setIdeas={setIdeas} />
       </h2>
+      <h3>
+        <await>
+       <APIComponent responses={responses} setResponses={setResponses} />
+       </await>
+       test
+      </h3>
     </div>
   );
 }
