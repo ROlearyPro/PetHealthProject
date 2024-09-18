@@ -11,7 +11,7 @@ function APIComponent({ responses, setResponses }) {
       }
     let input = "pain"
     let retVal;
-
+    
     const getPetHealth = async () => {
         if (input) {
           try {
