@@ -121,7 +121,6 @@ import APIComponent from './Components/APIComponent';
       </h2>
       <h3>
        <APIComponent responses={responses} setResponses={setResponses} />
-       test
       </h3>
     </div>
   );

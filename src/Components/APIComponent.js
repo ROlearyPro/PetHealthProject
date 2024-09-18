@@ -7,10 +7,10 @@ import React from 'react';
 
 function APIComponent({ responses, setResponses }) {
     function addResponse(newResponse) {
-        setResponses([...responses, newResponse])
+        setResponses([newResponse])
       }
     let input = "pain"
-    let retVal ="test"
+    let retVal;
 
     const getPetHealth = async () => {
         if (input) {
@@ -51,10 +51,15 @@ function APIComponent({ responses, setResponses }) {
         }
      );  
     }, [retVal]);
+ 
+console.log(responses)
 
-
-
-    return JSON.stringify(retVal)
+    return (
+        (([...responses].map((response)=>{
+          // response.results = "tests";
+          return JSON.stringify(response.results[0].animal)
+        }))))
+    
 }
 
 
