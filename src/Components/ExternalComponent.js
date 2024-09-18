@@ -1,24 +1,35 @@
 import './ExternalComponent.css';
 
-function ExternalComponent({ ideas }) {
+function ExternalComponent({ responses }) {
     // console.log(typeof(ideas))
-    return(ideas.map((idea) => {
-        idea.key=idea.id;
+    let responsesKeyVal = 0;
+
+    return (responses.map((response) => {
+        response.key = JSON.parse(JSON.stringify(responsesKeyVal));
+        responsesKeyVal+=1;
+        console.log(response.reaction)
+        console.log(response.drug[0])
+        let effectsKeyVal = 0;
         return (
-            <div key={idea.id}>
-                <br/>
+            <div>
                 <div>
-                {idea.id}
+                    {response.reaction.map((effects) => {
+                        console.log(effects)
+                        effects.key = JSON.parse(JSON.stringify(effectsKeyVal));
+                        effectsKeyVal+=1; 
+                        return (
+                            effects.veddrea_term_name
+                        )
+                    })}
                 </div>
+
                 <div>
-                {idea.title}
+                    {response.drug[0].brand_name}
                 </div>
-                <div>
-                {idea.description}
-                </div>
-                <br/>
             </div>
-    )}))
+        )
+
+    }))
 }
 
 export default ExternalComponent;

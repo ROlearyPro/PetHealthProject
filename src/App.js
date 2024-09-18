@@ -21,106 +21,60 @@ import APIComponent from './Components/APIComponent';
 
   const [ideas, setIdeas] = useState(dummyIdeas)
   const [responses, setResponses] = useState([])
+  const [input, setInput] = useState('pain')
 
   function addIdea(newIdea) {
     setIdeas([...ideas, newIdea])
   }
- 
+  let dataValue;
 
-  let input = "pain"
 
-  // const getPetHealth = async () => {
-  //   if (input) {
+  const getPetHealth = async () => {
+    if (input) {
 
-  //     try {
-  //       const url = 'https://api.fda.gov/animalandveterinary/event.json?search=' + input + '&limit=1';
-  //       const response = await fetch(url);
-  //       if (!response.ok) {
-  //         console.log("not okay line 31")
-  //         const err = new Error(response.statusText)
-  //         err.statusCode = response.status
-  //         throw err
-  //       } else {
-  //         const data = await response.json();
-  //         // console.log(responses);
-  //         // console.log(typeof(responses))
-  //         addResponse(data);
-  //         return data;
-  //       }
-  //     }
-  //     catch (err) {
-  //       console.error(err)
-  //     }
-  //   }
-  // };
+      try {
+        const url = 'https://api.fda.gov/animalandveterinary/event.json?search=' + input + '&limit=1';
+        const response = await fetch(url);
+        if (!response.ok) {
+          console.log("not okay line 40")
+          // const err = new Error(response.statusText)
+          // err.statusCode = response.status
+          throw new Error("Something went wrong with the response")
+        } else {
+          const data = await response.json();
+          console.log(data)
+          return data;
+        }
+      }
+      catch (err) {
+        console.error(err)
+      }
+    }
+  };
 
-  useEffect(() => {
-    // getPetHealth();
+  useEffect( () => {
+    console.log(getPetHealth(), "Pethealth console log")
+    getPetHealth().then((data)=>{
+      dataValue = data.results;
+      setResponses(dataValue)
+    }
+    );
   }, []);
 
-  //   return fetch('https://api.fda.gov/animalandveterinary/event.json?search=' + input + '&limit=1')
-  //     .then(res => {
-  //       if (!res.ok) {
-  //         console.log("not okay line 31")
-  //         const err = new Error(res.statusText)
-  //         err.statusCode = res.status
-  //         throw err
-  //       }
-  //       console.log("okay line 36")
-  //       return res.json()
-  //     })
-  //     .then(data => {
-  //       addIdea(data);
-  //       console.log(data)
-  //       return data
-  //     })
-  //     .catch(err => {
-  //       console.log(err)
+  console.log(responses, typeof(responses))
+  // console.log((responses[0]))
+// from the data, need the reactions and the drug name
 
-  //     });
-
-  // };
-
-  // 
-  // useEffect(() => {
-  //   const getSearchData = async () => {
-  //     if (input) {
-  //       const latitude = input;
-  //       let input = "pain"
-
-  //       try {
-  //         const url = 'https://api.fda.gov/animalandveterinary/event.json?search=' + { input } + '&limit=10';
-  //         const response = await fetch(url);
-  //         if (!response.ok) {
-  //           throw new Error('error retrieving medical info');
-  //         } else {
-  //           const data = await response.json();
-  //           console.log(data)
-
-  //         }
-  //       } catch (err) {
-  //         console.error(err);
-  //       }
-  //     }
-  //   };
-  //   void getSearchData();
-  // }, [input]);
-
-
-
-  // console.log(ideas, ' line25')
-  // console.log(responses, typeof(responses))
-  // console.log(typeof(responses))
   return (
     <div className="App">
       <h1>
-        <FormComponent ideas={ideas} setFormVals={setFormVals} addIdea={addIdea} />
+        {/* <FormComponent ideas={ideas} setFormVals={setFormVals} addIdea={addIdea} /> */}
       </h1>
       <h2>
-        <ExternalComponent ideas={ideas} setIdeas={setIdeas} />
+        <ExternalComponent responses={responses} setIdeas={setIdeas} />
       </h2>
       <h3>
-       <APIComponent responses={responses} setResponses={setResponses} />
+      {/* {responses[0].reaction} */}
       </h3>
     </div>
   );
