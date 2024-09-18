@@ -17,23 +17,24 @@ import APIComponent from './Components/APIComponent';
     description: '',
   }
 
-  const [formValues, setFormVals] = useState(emptyFormVals)
+  // const [formValues, setFormVals] = useState(emptyFormVals)
 
-  const [ideas, setIdeas] = useState(dummyIdeas)
+  // const [ideas, setIdeas] = useState(dummyIdeas)
   const [responses, setResponses] = useState([])
   const [input, setInput] = useState('pain')
+  const [limit, setLimit] = useState(5);
 
-  function addIdea(newIdea) {
-    setIdeas([...ideas, newIdea])
-  }
+  // function addIdea(newIdea) {
+  //   setIdeas([...ideas, newIdea])
+  // }
   let dataValue;
-
+  let dataKey=0;
 
   const getPetHealth = async () => {
     if (input) {
 
       try {
-        const url = 'https://api.fda.gov/animalandveterinary/event.json?search=' + input + '&limit=1';
+        const url = 'https://api.fda.gov/animalandveterinary/event.json?search=' + input + '&limit='+limit;
         const response = await fetch(url);
         if (!response.ok) {
           console.log("not okay line 40")
@@ -56,6 +57,8 @@ import APIComponent from './Components/APIComponent';
     console.log(getPetHealth(), "Pethealth console log")
     getPetHealth().then((data)=>{
       dataValue = data.results;
+      dataValue.key= JSON.parse(JSON.stringify(dataKey))
+      dataKey+=1;
       setResponses(dataValue)
     }
     );
@@ -71,7 +74,7 @@ import APIComponent from './Components/APIComponent';
         {/* <FormComponent ideas={ideas} setFormVals={setFormVals} addIdea={addIdea} /> */}
       </h1>
       <h2>
-        <ExternalComponent responses={responses} setIdeas={setIdeas} />
+        <ExternalComponent responses={responses} setResponses={setResponses} />
       </h2>
       <h3>
       {/* {responses[0].reaction} */}
