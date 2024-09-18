@@ -1,7 +1,7 @@
 import './ExternalComponent.css';
 
 function ExternalComponent({ ideas }) {
-    console.log(ideas)
+    // console.log(typeof(ideas))
     return(ideas.map((idea) => {
         idea.key=idea.id;
         return (

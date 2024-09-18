@@ -25,39 +25,37 @@ import APIComponent from './Components/APIComponent';
   function addIdea(newIdea) {
     setIdeas([...ideas, newIdea])
   }
-  function addResponse(newResponse) {
-    setResponses([...responses, newResponse])
-  }
+ 
 
   let input = "pain"
 
-  const getPetHealth = async () => {
-    if (input) {
+  // const getPetHealth = async () => {
+  //   if (input) {
 
-      try {
-        const url = 'https://api.fda.gov/animalandveterinary/event.json?search=' + input + '&limit=1';
-        const response = await fetch(url);
-        if (!response.ok) {
-          console.log("not okay line 31")
-          const err = new Error(response.statusText)
-          err.statusCode = response.status
-          throw err
-        } else {
-          const data = await response.json();
-          console.log(response);
-          console.log(typeof(response))
-          addResponse(data);
-          return data;
-        }
-      }
-      catch (err) {
-        console.error(err)
-      }
-    }
-  };
+  //     try {
+  //       const url = 'https://api.fda.gov/animalandveterinary/event.json?search=' + input + '&limit=1';
+  //       const response = await fetch(url);
+  //       if (!response.ok) {
+  //         console.log("not okay line 31")
+  //         const err = new Error(response.statusText)
+  //         err.statusCode = response.status
+  //         throw err
+  //       } else {
+  //         const data = await response.json();
+  //         // console.log(responses);
+  //         // console.log(typeof(responses))
+  //         addResponse(data);
+  //         return data;
+  //       }
+  //     }
+  //     catch (err) {
+  //       console.error(err)
+  //     }
+  //   }
+  // };
 
   useEffect(() => {
-    getPetHealth();
+    // getPetHealth();
   }, []);
 
   //   return fetch('https://api.fda.gov/animalandveterinary/event.json?search=' + input + '&limit=1')
@@ -109,17 +107,10 @@ import APIComponent from './Components/APIComponent';
   // }, [input]);
 
 
-    useEffect(()=>{
-    getPetHealth().then(
-      data=>{
-        console.log(data);
-      }
-    )
-  }, [])
 
-  console.log(ideas, ' line25')
-  console.log(responses, typeof(responses))
-  console.log(typeof(responses[0]))
+  // console.log(ideas, ' line25')
+  // console.log(responses, typeof(responses))
+  // console.log(typeof(responses))
   return (
     <div className="App">
       <h1>
@@ -129,9 +120,7 @@ import APIComponent from './Components/APIComponent';
         <ExternalComponent ideas={ideas} setIdeas={setIdeas} />
       </h2>
       <h3>
-        <await>
        <APIComponent responses={responses} setResponses={setResponses} />
-       </await>
        test
       </h3>
     </div>
