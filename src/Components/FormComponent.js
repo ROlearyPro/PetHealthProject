@@ -32,6 +32,7 @@ function FormComponent({ideas, formValues, addIdea}) {
         setDescriptionVal(() => e.target.value)
     }
     return (
+        <div>
         <form onSubmit={(e) => handleSubmit(e)}>
 
             <input 
@@ -49,6 +50,7 @@ function FormComponent({ideas, formValues, addIdea}) {
             </select>
             <button type="submit">set vals</button>
         </form>
+        </div>
     )
 
 }
