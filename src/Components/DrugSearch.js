@@ -10,14 +10,15 @@ function DrugSearch({ responses }) {
             response.key = JSON.parse(JSON.stringify(responsesKeyVal));
             responsesKeyVal += 1;
             // console.log(response.drug[0])
+                    //placeholder: make a button that links back to home page
+
             let effectsKeyVal = 0;
             if (response.reaction != undefined && response.animal != undefined) {
                 return (
                     <div>
                         <br /><br />
-                        <br /><br />
+                        <br />
                         <div>
-                            {/* drug name: {response.drug[0].brand_name} */}
                             drug info: {response.drug.map((oneMedicine) => {
                                 console.log(oneMedicine);
                                 oneMedicine.key = JSON.parse(JSON.stringify(effectsKeyVal));

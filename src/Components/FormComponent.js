@@ -1,25 +1,19 @@
 import { useState } from 'react';
 import './FormComponent.css';
 import React from 'react';
+import { useNavigate } from 'react-router-dom';
 
 
-function FormComponent({ input,checkedVal, setCheckedVal, setFormVals, setInput, setCountResponse, setResponses, getPetHealth }) {
-    const [idVal, setIdVal] = useState('');
+function FormComponent({ checkedVal, setCheckedVal, setInput, setCountResponse, setResponses, getPetHealth }) {
     const [titleVal, setIdeaVal] = useState('');
-    const [descriptionVal, setDescriptionVal] = useState('');
     let dataValue;
     let dataKey = 0;
+    // const navigate = useNavigate();
 
     const handleSubmit = (event) => {
         event.preventDefault();
         setInput(
             titleVal
-            //     {
-            //     id: idVal,
-            //     title: titleVal,
-            //     description: descriptionVal
-
-            // }
         )
 
         console.log(getPetHealth(), "Pethealth console log")
@@ -32,6 +26,7 @@ function FormComponent({ input,checkedVal, setCheckedVal, setFormVals, setInput,
                     dataKey += 1;
                     if (checkedVal) {
                         setCountResponse(dataValue)
+                        // navigate(`/search/`)
                     } else {
                         setResponses(dataValue)
                     }
@@ -51,12 +46,8 @@ function FormComponent({ input,checkedVal, setCheckedVal, setFormVals, setInput,
         }
         
     }
-    const handleIDInput = (e) => {
-        setIdVal(() => e.target.value)
-    }
     const handleIdeaInput = (e) => {
         setIdeaVal(() => e.target.value)
-        setIdVal(() => input.length + 1);
         setInput(()=> e.target.value)
 
     }
@@ -67,11 +58,11 @@ function FormComponent({ input,checkedVal, setCheckedVal, setFormVals, setInput,
         <div>
         <form onSubmit={(e) => handleSubmit(e)}>
 
-        <label id='labelval'>
+        <label id='labelval' className='label-for-search'>
             Search for the active ingredient in your pet's medicine:
             <input
                 type='text'
-                className='Title'
+                className='Search'
                 placeholder={"Search through drugs"}
                 value={titleVal}
                 onChange={handleIdeaInput}
@@ -79,10 +70,10 @@ function FormComponent({ input,checkedVal, setCheckedVal, setFormVals, setInput,
                         </label>
 
             <br/>
-            <label>
-                Count individual occurances?
+            <label className='label-for-overall-cases'>
+                List overall number of side effect reports?
                 <br/>
-            <select id='Checkbox' onChange={Counting}>
+            <select id='overall-cases' className='overall-side-effect-cases-option' onChange={Counting}>
                 
                 <option value='true'> Yes</option>
                 <option value='false'> No</option>
@@ -92,7 +83,7 @@ function FormComponent({ input,checkedVal, setCheckedVal, setFormVals, setInput,
             </label>
             <br/>
             
-            <button type="submit">set vals</button>
+            <button type="submit" className='search-enter'>set vals</button>
         </form>
         <div className='errorSpot'></div>
 

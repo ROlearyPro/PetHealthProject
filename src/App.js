@@ -1,16 +1,12 @@
 import logo from './logo.svg';
 import './App.css';
+import { Routes, Route } from 'react-router-dom';
 import DrugSearch from './Components/DrugSearch';
 import FormComponent from './Components/FormComponent';
 import React, { useEffect, useState } from 'react';
 import APIComponent from './Components/APIComponent';
 import CountComponent from './Components/CountComponent';
 function App() {
-  const dummyIdeas = [
-    { id: 1, title: 'Prank Travis', description: 'Stick googly eyes on all his stuff' },
-    { id: 2, title: 'Make a secret password app', description: 'So you and your rideshare driver can both know neither one of you is lying' },
-    { id: 3, title: 'Learn a martial art', description: 'To exact vengeance upon my enemies' },
-  ]
 
   const emptyFormVals = {
     key:-1,
@@ -21,7 +17,6 @@ function App() {
 
   const [formValues, setFormVals] = useState(emptyFormVals)
 
-  const [ideas, setIdeas] = useState(dummyIdeas)
   const [responses, setResponses] = useState([])
   const [input, setInput] = useState('')
   const [limit, setLimit] = useState(3);
@@ -30,19 +25,17 @@ function App() {
 
 
   
-  function addIdea(newIdea) {
-    setIdeas([...ideas, newIdea])
-  }
+  
   let dataValue;
   let dataKey = 0;
-  let url = 'https://api.fda.gov/animalandveterinary/event.json?search=drug.active_ingredients.name"' + input + '"&limit=' + limit;
+  let url = 'https://api.fda.gov/animalandveterinary/event.json?search=drug.active_ingredients.name:"' + input + '"&limit=' + limit;
 
   const getPetHealth = async () => {
     if (input) {
 
       try {
         if (checkedVal === true) {
-          url = 'https://api.fda.gov/animalandveterinary/event.json?search=drug.active_ingredients.name"'+input+'"&count=reaction.veddra_term_name.exact&limit='+limit;
+          url = 'https://api.fda.gov/animalandveterinary/event.json?search=drug.active_ingredients.name:"'+input+'"&count=reaction.veddra_term_name.exact&limit='+limit;
           console.log('count')
           setResponses([]);
 
@@ -103,12 +96,10 @@ function App() {
 
 
       </div>
-      <br/>
       <div>
-        <CountComponent countResponse={countResponse} setCountResponse={setCountResponse} />
+        <CountComponent countResponse={countResponse} input={input} limit={limit} setCountResponse={setCountResponse} />
 
       </div>
-      <br/>
       <div>
       <DrugSearch responses={responses} setResponses={setResponses} />
 

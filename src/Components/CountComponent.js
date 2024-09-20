@@ -1,48 +1,41 @@
 import './CountComponent.css';
 
-function CountComponent({ countResponse, setCountResponse }) {
-    if(countResponse){
-    // console.log(typeof(ideas))
-    let countResponseKeyVal = 0;
-    countResponse.key=countResponseKeyVal;
-    return (countResponse.map((response) => {
-        response.key = JSON.parse(JSON.stringify(countResponseKeyVal));
-        countResponseKeyVal += 1;
-        // console.log(response)
-        // console.log(response.drug[0])
-        // let effectsKeyVal = 0;
-        return(
-            <div>
-                <br/>
-                {response.term}
-                <br/>
-                {response.count}
-                <br/><br/>
-            </div>
-        )
-        // return (
-        //     <div>
-        //         <br/><br/>
-        //         <div>
-        //             drug name: {response.drug[0].brand_name}
-        //         </div>
-        //         <br/>
-        //         <div>
-        //             drug reactions :{response.reaction.map((effects) => {
-        //                 console.log(effects)
-        //                 effects.key = JSON.parse(JSON.stringify(effectsKeyVal));
-        //                 effectsKeyVal += 1;
-        //                 console.log(effects.veddra_term_name)
-        //                 return (<div>
-        //                     {effects.veddra_term_name}
-        //                 </div>
-        //                 )
-        //             })}
-        //         </div>
-        //     </div>
-        // )
+function CountComponent({ countResponse, input, limit }) {
+    if (countResponse) {
+        // console.log(typeof(ideas))
+                //placeholder: make a button that links back to home page
 
-    }))
-}}
+        let countResponseKeyVal = 0;
+        countResponse.key = countResponseKeyVal;
+        console.log(countResponse)
+        if (countResponse.length != 0) {
+            return (<div className='side-effects-description'>
+                The {limit} most common side effects for {input}:
+                {countResponse.map((response) => {
+                    response.key = JSON.parse(JSON.stringify(countResponseKeyVal));
+                    countResponseKeyVal += 1;
+                    // console.log(response)
+                    // console.log(response.drug[0])
+                    // let effectsKeyVal = 0;
+                    return (
+                        <div>
+                            <br />
+                            <br />
+                            <div className='side-effect-area'>
+                                Side effect: {response.term}
+                            </div>
+                            <div className='side-effect-count-area'>
+                                {response.count} cases reported for patients taking this drug.
+                            </div>
+                            <br />
+                        </div>
+                    )
+                })}
+            </div>
+            )
+        }else{return ''}
+    }
+}
+
 
 export default CountComponent;
