@@ -11,14 +11,14 @@ function CountComponent({ countResponse, input, limit }) {
         if (countResponse.length != 0) {
             return (<div className='side-effects-description'>
                 The {limit} most common side effects for {input}:
-                {countResponse.map((response) => {
+                {countResponse.map((response, index) => {
                     response.key = JSON.parse(JSON.stringify(countResponseKeyVal));
                     countResponseKeyVal += 1;
                     // console.log(response)
                     // console.log(response.drug[0])
                     // let effectsKeyVal = 0;
                     return (
-                        <div>
+                        <div key={index}>
                             <br />
                             <br />
                             <div className='side-effect-area'>

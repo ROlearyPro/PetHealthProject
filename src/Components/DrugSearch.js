@@ -1,36 +1,31 @@
 import './DrugSearch.css';
 
 function DrugSearch({ responses }) {
-    // console.log(typeof(ideas))
 
     if (responses.length!=0) {
         let responsesKeyVal = 0;
+        let keyProp = 0;
 
-        return (responses.map((response) => {
-            response.key = JSON.parse(JSON.stringify(responsesKeyVal));
+        return (responses.map((response,superindex) => {
             responsesKeyVal += 1;
-            // console.log(response.drug[0])
-                    //placeholder: make a button that links back to home page
-
             let effectsKeyVal = 0;
             if (response.reaction != undefined && response.animal != undefined) {
                 return (
-                    <div>
+                    <div key={superindex}>
                         <br /><br />
                         <br />
                         <div>
-                            drug info: {response.drug.map((oneMedicine) => {
+                            drug info: {response.drug.map((oneMedicine, index) => {
                                 console.log(oneMedicine);
                                 oneMedicine.key = JSON.parse(JSON.stringify(effectsKeyVal));
                                 effectsKeyVal += 1;
 
-                                return (<div>
-                                    brand name:{oneMedicine.brand_name}
+                                return (<div key={index}> brand name:{oneMedicine.brand_name}
                                     <br /><br />
 
                                     active ingredients:{
-                                        oneMedicine.active_ingredients.map((ingredient) => {
-                                            return (<div>{ingredient.name}</div>)
+                                        oneMedicine.active_ingredients.map((ingredient, subindex) => {
+                                            return (<div key={subindex}>{ingredient.name}</div>)
                                         })
                                     }
                                 </div>)
@@ -50,17 +45,14 @@ function DrugSearch({ responses }) {
                         <br />
                         <div>
                             drug reactions :{
-                                response.reaction.map((effects) => {
+                                response.reaction.map((effects, finalIndex) => {
                                     // console.log(effects)
-                                    effects.key = JSON.parse(JSON.stringify(effectsKeyVal));
-                                    effectsKeyVal += 1;
                                     // console.log(effects.veddra_term_name)
-                                    return (<div>
+                                    return (<div key ={finalIndex}>
                                         {effects.veddra_term_name}
                                     </div>
                                     )
                                 })}
-
                         </div>
                     </div>
                 )
