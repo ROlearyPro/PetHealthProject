@@ -1,21 +1,23 @@
 import './CountComponent.css';
 
-function CountComponent({ countResponse }) {
+function CountComponent({ countResponse, setCountResponse }) {
     if(countResponse){
     // console.log(typeof(ideas))
     let countResponseKeyVal = 0;
-    console.log(countResponse)
-
+    countResponse.key=countResponseKeyVal;
     return (countResponse.map((response) => {
         response.key = JSON.parse(JSON.stringify(countResponseKeyVal));
         countResponseKeyVal += 1;
-        console.log(response)
+        // console.log(response)
         // console.log(response.drug[0])
-        let effectsKeyVal = 0;
+        // let effectsKeyVal = 0;
         return(
             <div>
                 <br/>
                 {response.term}
+                <br/>
+                {response.count}
+                <br/><br/>
             </div>
         )
         // return (

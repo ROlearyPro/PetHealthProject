@@ -1,6 +1,6 @@
 import logo from './logo.svg';
 import './App.css';
-import ExternalComponent from './Components/ExternalComponent';
+import DrugSearch from './Components/DrugSearch';
 import FormComponent from './Components/FormComponent';
 import React, { useEffect, useState } from 'react';
 import APIComponent from './Components/APIComponent';
@@ -13,6 +13,7 @@ function App() {
   ]
 
   const emptyFormVals = {
+    key:-1,
     id: -1,
     title: '',
     description: '',
@@ -22,9 +23,10 @@ function App() {
 
   const [ideas, setIdeas] = useState(dummyIdeas)
   const [responses, setResponses] = useState([])
-  const [input, setInput] = useState('pain')
-  const [limit, setLimit] = useState(5);
+  const [input, setInput] = useState('')
+  const [limit, setLimit] = useState(3);
   const [countResponse, setCountResponse] = useState([])
+  const [checkedVal, setCheckedVal] = useState(true);
 
 
   
@@ -33,28 +35,38 @@ function App() {
   }
   let dataValue;
   let dataKey = 0;
-  let checkedVal = true;
-  let url = 'https://api.fda.gov/animalandveterinary/event.json?search=' + input + '&limit=' + limit;
+  let url = 'https://api.fda.gov/animalandveterinary/event.json?search=drug.active_ingredients.name"' + input + '"&limit=' + limit;
 
   const getPetHealth = async () => {
     if (input) {
 
       try {
         if (checkedVal === true) {
-          url = 'https://api.fda.gov/animalandveterinary/event.json?count='+input;
-          // +'&limit='+limit;
+          url = 'https://api.fda.gov/animalandveterinary/event.json?search=drug.active_ingredients.name"'+input+'"&count=reaction.veddra_term_name.exact&limit='+limit;
+          console.log('count')
+          setResponses([]);
+
         }
+        else{console.log('no count')
+          setCountResponse([])
+
+        }
+        
         const response = await fetch(url);
         if (!response.ok) {
           console.log("not okay line 40")
+          console.log(response)
+          setResponses([]);
+          setCountResponse([])
           // const err = new Error(response.statusText)
           // err.statusCode = response.status
+          return "error"
 
           throw new Error("Something went wrong with the response")
+          
         } else {
           const data = await response.json();
-          console.log(data)
-          return data;
+          return data; 
         }
       }
       catch (err) {
@@ -62,7 +74,7 @@ function App() {
       }
     }
   };
-
+ 
   useEffect(() => {
     // console.log(getPetHealth(), "Pethealth console log")
     // if (getPetHealth()) {
@@ -81,26 +93,26 @@ function App() {
     //   }
     //   );
     // }
-    //set to only occur on submit
+    // set to only occur on submit
   }, []);
-
-  console.log(responses, typeof (responses))
-  // console.log((responses[0]))
-  // from the data, need the reactions and the drug name
 
   return (
     <div className="App">
-      <h1>
-        <FormComponent input={input} ideas={ideas} setFormVals={setFormVals} addIdea={addIdea} setInput={setInput} />
-      </h1>
-      <h2>
-        <ExternalComponent responses={responses} setResponses={setResponses} />
+      <div>
+      <FormComponent input={input} checkedVal = {checkedVal} setCheckedVal={setCheckedVal} setFormVals={setFormVals} setInput={setInput} setCountResponse={setCountResponse} setResponses={setResponses} getPetHealth={getPetHealth} />
+
+
+      </div>
+      <br/>
+      <div>
         <CountComponent countResponse={countResponse} setCountResponse={setCountResponse} />
 
-      </h2>
-      <h3>
-        {/* {responses[0].reaction} */}
-      </h3>
+      </div>
+      <br/>
+      <div>
+      <DrugSearch responses={responses} setResponses={setResponses} />
+
+      </div>
     </div>
   );
 }
