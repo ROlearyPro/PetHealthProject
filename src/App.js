@@ -1,15 +1,18 @@
 import logo from './logo.svg';
 import './App.css';
-import { Routes, Route } from 'react-router-dom';
+import { BrowserRouter as Router } from 'react-router-dom';
+
+import { Routes, Route, useNavigate } from 'react-router-dom';
 import DrugSearch from './Components/DrugSearch';
 import FormComponent from './Components/FormComponent';
 import React, { useEffect, useState } from 'react';
+
 import APIComponent from './Components/APIComponent';
 import CountComponent from './Components/CountComponent';
 function App() {
 
   const emptyFormVals = {
-    key:-1,
+    key: -1,
     id: -1,
     title: '',
     description: '',
@@ -24,8 +27,8 @@ function App() {
   const [checkedVal, setCheckedVal] = useState(true);
 
 
-  
-  
+
+
   let dataValue;
   let dataKey = 0;
   let url = 'https://api.fda.gov/animalandveterinary/event.json?search=drug.active_ingredients.name:"' + input + '"&limit=' + limit;
@@ -35,16 +38,17 @@ function App() {
 
       try {
         if (checkedVal === true) {
-          url = 'https://api.fda.gov/animalandveterinary/event.json?search=drug.active_ingredients.name:"'+input+'"&count=reaction.veddra_term_name.exact&limit='+limit;
+          url = 'https://api.fda.gov/animalandveterinary/event.json?search=drug.active_ingredients.name:"' + input + '"&count=reaction.veddra_term_name.exact&limit=' + limit;
           console.log('count')
           setResponses([]);
 
         }
-        else{console.log('no count')
+        else {
+          console.log('no count')
           setCountResponse([])
 
         }
-        
+
         const response = await fetch(url);
         if (!response.ok) {
           console.log("not okay line 40")
@@ -56,10 +60,10 @@ function App() {
           return "error"
 
           throw new Error("Something went wrong with the response")
-          
+
         } else {
           const data = await response.json();
-          return data; 
+          return data;
         }
       }
       catch (err) {
@@ -67,7 +71,7 @@ function App() {
       }
     }
   };
- 
+
   useEffect(() => {
     // console.log(getPetHealth(), "Pethealth console log")
     // if (getPetHealth()) {
@@ -90,20 +94,14 @@ function App() {
   }, []);
 
   return (
-    <div className="App">
-      <div>
-      <FormComponent input={input} checkedVal = {checkedVal} setCheckedVal={setCheckedVal} setFormVals={setFormVals} setInput={setInput} setCountResponse={setCountResponse} setResponses={setResponses} getPetHealth={getPetHealth} />
+    <div>
+      <Routes>
+        <Route path='/' element={<FormComponent input={input} checkedVal={checkedVal} setCheckedVal={setCheckedVal} setInput={setInput} setCountResponse={setCountResponse} setResponses={setResponses} getPetHealth={getPetHealth} />}></Route>
 
+        <Route path='/search/:searchInput' element={<CountComponent countResponse={countResponse} input={input} limit={limit} />}></Route>
 
-      </div>
-      <div>
-        <CountComponent countResponse={countResponse} input={input} limit={limit} setCountResponse={setCountResponse} />
-
-      </div>
-      <div>
-      <DrugSearch responses={responses} setResponses={setResponses} />
-
-      </div>
+        <Route path='/searchcount/:searchInput' element={<DrugSearch responses={responses} setResponses={setResponses} />}></Route>
+      </Routes>
     </div>
   );
 }
