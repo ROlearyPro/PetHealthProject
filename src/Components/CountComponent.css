@@ -1,0 +1,26 @@
+.side-effect-area {
+    width: clamp(128px, 24vw, 24vw);
+    min-height: 100px;
+    text-align: center;
+    font-family: "Exo", sans-serif;
+    font-optical-sizing: auto;
+    font-weight: 400;
+    font-style: normal;
+    border-style: dashed;
+    border-color: white;
+    border-radius: 5px;
+    margin: 5px;
+    padding: 10px;
+
+    font-size: clamp(12px, 14px, 24px);
+}
+.container{
+    width: clamp(163px, 30vw, 30vw);
+    align-items: center;
+    display: flex;
+flex-direction: row;
+    border-radius:12px;
+    border-color: aqua;
+    border-style: dotted;
+
+}
