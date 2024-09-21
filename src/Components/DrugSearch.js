@@ -12,10 +12,10 @@ function DrugSearch({ responses }) {
                     if (response.animal.breed) {
                         if (response.animal.breed.breed_component !== undefined) {
                             return (
-                                <div key={superindex}>
+                                <div className='container' key={superindex}>
                                     <br /><br />
                                     <br />
-                                    <div>
+                                    <div className='search-return'>
                                         drug info: {response.drug.map((oneMedicine, index) => {
                                             console.log(oneMedicine);
                                             oneMedicine.key = JSON.parse(JSON.stringify(effectsKeyVal));
@@ -38,7 +38,7 @@ function DrugSearch({ responses }) {
                                         </div>
                                     </div>
                                     <br />
-                                    <div>
+                                    <div className='search-return'>
                                         drug reactions :{
                                             response.reaction.map((effects, finalIndex) => {
                                                 // console.log(effects)

@@ -7,7 +7,6 @@ import DrugSearch from './Components/DrugSearch';
 import FormComponent from './Components/FormComponent';
 import React, { useEffect, useState } from 'react';
 
-import APIComponent from './Components/APIComponent';
 import CountComponent from './Components/CountComponent';
 function App() {
 
@@ -32,6 +31,7 @@ function App() {
   let dataValue;
   let dataKey = 0;
   let url = 'https://api.fda.gov/animalandveterinary/event.json?search=drug.active_ingredients.name:"' + input + '"&limit=' + limit;
+  const navigate = useNavigate();
 
   const getPetHealth = async () => {
     if (input) {
@@ -91,17 +91,23 @@ function App() {
     //   );
     // }
     // set to only occur on submit
-  }, []);
 
+  }, []);
+  const homeButton = (event) => {
+  navigate(`/`)
+  }
   return (
     <div>
+    <div className='title-bar' onClick={homeButton}>Pet Health Secure</div>
+    <div className='main-page'>
       <Routes>
         <Route path='/' element={<FormComponent input={input} checkedVal={checkedVal} setCheckedVal={setCheckedVal} setInput={setInput} setCountResponse={setCountResponse} setResponses={setResponses} getPetHealth={getPetHealth} />}></Route>
 
-        <Route path='/search/:searchInput' element={<CountComponent countResponse={countResponse} input={input} limit={limit} />}></Route>
+        <Route path='/searchcount/:searchInput' element={<CountComponent countResponse={countResponse} input={input} limit={limit} />}></Route>
 
-        <Route path='/searchcount/:searchInput' element={<DrugSearch responses={responses} setResponses={setResponses} />}></Route>
+        <Route path='/search/:searchInput' element={<DrugSearch responses={responses} setResponses={setResponses} />}></Route>
       </Routes>
+    </div>
     </div>
   );
 }
