@@ -1,70 +1,22 @@
-# Getting Started with Create React App
+# PetHealth MVP
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+## Project and Goals
+My project here was ultimately to create a website that one could enter the name of a drug taken by an animal into, and search it: The goal of this was that this would allow them to find medical info about that drug, and any common side effects, thus allowing them to avoid prescribing ineffective or dangerous drugs to a patient, or ask a doctor if there might be different medicines that could be prescribed instead.
 
-## Available Scripts
+## Technologies Used
+The main technologies used here were React and Cypress, the former to allow routing and fetching info, among other things, and the latter to facilitate end to end testing. Other than that, I made use of the openFDA database created by the US Food and Drug Administration, specifically the animal drug adverse event reports endpoint. The rest was made on my own!
 
-In the project directory, you can run:
+## Challenges/Wins
+I feel like there were a couple of main challenges I dealt with for this project. The first was the fact that drug brand names were largely masked, due to security/privacy reasons, as defined by the FDA. This meant I had to switch from my initial goal of just entering the name of the drug to having the user search for the active ingredient. In the end though, this was an easy fix to implement, mostly being annoying in how I had to move the goalposts in what I was trying to do. 
+A much more difficult challenge was sorting through the enormous amount of information the database has for each and every entry, in combination with the fact that any given value had no guarantee of being present in the data; I would have chosen to just go through the effort of creating sections for all the important values, but I would have to be sure any values which might actually be displayed were present first, which required that I'm able to confirm that their parent containers are present first, and those parents' parents, and so on. In the end, I simply focused on a few very commonly included points of data to guarantee I would be able to display, and which would simply be omitted if not present. Even this required way more if statements than I was happy with, but I'm still glad I was able to do it at all, especially given I found this to be a problem only a day before the due date.
 
-### `npm start`
+## Screenshots
+<img width="1710" alt="Screenshot 2024-09-21 at 2 56 11 PM" src="https://github.com/user-attachments/assets/7dfd8b85-91b2-40b1-b0d7-7881bfae622e">
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+<img width="1710" alt="Screenshot 2024-09-21 at 2 56 24 PM" src="https://github.com/user-attachments/assets/b6c65984-990c-46c4-9db1-0d757f394589">
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+<img width="1710" alt="Screenshot 2024-09-21 at 2 56 38 PM" src="https://github.com/user-attachments/assets/5e85d814-7099-4e8d-814a-98f8f565ac01">
 
-### `npm test`
-
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
-
-### `npm run build`
-
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
-
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
-
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
-
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+### Contributors
+U.S. Food and Drug Administration for the endpoints;
+Ryan O'Leary for most everything else.
