@@ -18,14 +18,18 @@ function DrugSearch({ responses }) {
                                     <div className='search-return'>
                                         drug info: {response.drug.map((oneMedicine, index) => {
                                             console.log(oneMedicine);
+                                            console.log(response);
+                                            
                                             oneMedicine.key = JSON.parse(JSON.stringify(effectsKeyVal));
                                             effectsKeyVal += 1;
                                             return (
                                                 <div key={index}> brand name:{oneMedicine.brand_name}
                                                     <br /><br /> active ingredients:{
                                                         oneMedicine.active_ingredients.map((ingredient, subindex) => {
+                                                            console.log(oneMedicine.active_ingredients)
                                                             return (<div key={subindex}>{ingredient.name}</div>)
                                                         })}
+
                                                 </div>)
                                         })}
                                         <br />
