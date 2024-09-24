@@ -2,8 +2,6 @@ import './CountComponent.css';
 
 function CountComponent({ countResponse, input, limit }) {
     if (countResponse) {
-        // console.log(typeof(ideas))
-                //placeholder: make a button that links back to home page
 
         let countResponseKeyVal = 0;
         countResponse.key = countResponseKeyVal;
@@ -14,9 +12,6 @@ function CountComponent({ countResponse, input, limit }) {
                 {countResponse.map((response, index) => {
                     response.key = JSON.parse(JSON.stringify(countResponseKeyVal));
                     countResponseKeyVal += 1;
-                    // console.log(response)
-                    // console.log(response.drug[0])
-                    // let effectsKeyVal = 0;
                     return (
                         <div className='container' key={index}>
                             <br />

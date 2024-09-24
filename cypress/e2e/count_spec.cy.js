@@ -1,15 +1,14 @@
 describe('Make sure the count works', () => {
   beforeEach(() => {
     cy.intercept('GET',
-      'https://api.fda.gov/animalandveterinary/event.json?search=drug.active_ingredients.name:"spinosad"&limit=3'
-    ).as('Pet info for test');
+      'https://api.fda.gov/animalandveterinary/event.json?search=drug.active_ingredients.name:"spinosad"&limit=3', { statusCode: 200, fixture: 'checked' }).as('Pet info for test');
     cy.visit('http://localhost:3000/');
     cy.get('.Search').type("spinosad");
     cy.get('.overall-side-effect-cases-option').select('true').invoke("val").should("eq", "true");
     cy.get('.search-enter').click()
 
   });
-  it('should get back to main form area correctly', ()=>{
+  it('should get back to main form area correctly', () => {
     cy.wait(500)
     cy.get('.title-bar').click();
   })
@@ -21,8 +20,4 @@ describe('Make sure the count works', () => {
     cy.get(':nth-child(3) > .side-effect-area').should("contain", "Side effect: Lethargy (see also Central nervous system depression in 'Neurological')")
     cy.get(':nth-child(3) > .side-effect-count-area').should("contain", "23421 cases reported for patients taking this drug.")
   });
-
-
-
-
 });

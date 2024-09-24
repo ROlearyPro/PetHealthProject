@@ -45,8 +45,6 @@ function DrugSearch({ responses }) {
                                     <div className='search-return'>
                                         drug reactions :{
                                             response.reaction.map((effects, finalIndex) => {
-                                                // console.log(effects)
-                                                // console.log(effects.veddra_term_name)
                                                 return (<div key={finalIndex}>
                                                     {effects.veddra_term_name}
                                                 </div>
