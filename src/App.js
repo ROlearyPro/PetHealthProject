@@ -33,7 +33,6 @@ function App() {
           setCountResponse([])
 
         }
-        await new Promise(r => setTimeout(r, 50));
         const response = await fetch(url);
         if (!response.ok) {
           console.log("not okay line 40")
@@ -53,9 +52,6 @@ function App() {
     }
   };
 
-  useEffect(() => {
- getPetHealth()
-  }, []);
   const homeButton = (event) => {
 
   navigate(`/`)

@@ -53,14 +53,14 @@ function DrugSearch({ responses }) {
                                     </div>
                                 </div>
                             )
-                        } else { return '' }
-                    } else { return '' }
-                } else { return '' }
-            } else { return '' }
+                        } else { return  }
+                    } else { return  }
+                } else { return  }
+            } else { return  }
         }))
     }
     else {
-        return ''
+        return 
     }
 }
 export default DrugSearch;

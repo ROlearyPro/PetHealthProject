@@ -1,7 +1,7 @@
 describe('Make sure the count works', () => {
   beforeEach(() => {
     cy.intercept('GET',
-      'https://api.fda.gov/animalandveterinary/event.json?search=drug.active_ingredients.name:"spinosad"&limit=3', { statusCode: 200, fixture: 'checked' }).as('Pet info for test');
+      'https://api.fda.gov/animalandveterinary/event.json?search=drug.active_ingredients.name:%22spinosad%22&count=reaction.veddra_term_name.exact&limit=3', { statusCode: 200, fixture: 'checked' }).as('Pet info for test');
     cy.visit('http://localhost:3000/');
     cy.get('.Search').type("spinosad");
     cy.get('.overall-side-effect-cases-option').select('true').invoke("val").should("eq", "true");

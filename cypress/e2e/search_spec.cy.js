@@ -1,7 +1,7 @@
 describe('Make sure the count works', () => {
   beforeEach(() => {
     cy.intercept('GET',
-      'https://api.fda.gov/animalandveterinary/event.json?search=drug.active_ingredients.name:"spinosad"&limit=3',
+      'https://api.fda.gov/animalandveterinary/event.json?search=drug.active_ingredients.name:%22spinosad%22&limit=3',
       { statusCode: 200, fixture: 'unchecked' }).as('Pet info for test');
     cy.intercept('GET',
       'https://api.fda.gov/animalandveterinary/event.json?search=drug.active_ingredients.name:"Milbemycin Oxime"&limit=3',
